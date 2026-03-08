@@ -9,7 +9,11 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test": "echo \"No tests configured yet\" && exit 0",
-    "gate": "pnpm run typecheck && pnpm run lint && pnpm run test"
+    "gate": "pnpm run typecheck && pnpm run lint && pnpm run test",
+    "db:migrate": "npx tsx db/migrate.ts",
+    "db:migrate:force": "npx tsx db/migrate.ts --force",
+    "seed": "npx tsx db/seed.ts",
+    "seed:reset": "npx tsx db/seed.ts --reset"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.0.1",
