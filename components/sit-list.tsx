@@ -13,8 +13,12 @@ export function SitList({ sits, currentUserId }: SitListProps) {
 
   return (
     <div>
-      {/* Available Now */}
-      <section>
+      {/* Available Now — warm wash background */}
+      <section className={
+        availableNow.length > 0
+          ? "-mx-5 rounded-2xl bg-surface/50 px-5 py-5"
+          : ""
+      }>
         <div className="flex items-center gap-2.5">
           {availableNow.length > 0 && (
             <span className="relative flex h-2.5 w-2.5">
@@ -48,8 +52,12 @@ export function SitList({ sits, currentUserId }: SitListProps) {
         )}
       </section>
 
-      {/* Divider */}
-      <hr className="my-8 border-border" />
+      {/* Decorative divider — three dots, zendo style */}
+      <div className="my-8 flex items-center justify-center gap-1.5">
+        <span className="h-1 w-1 rounded-full bg-border" />
+        <span className="h-1 w-1 rounded-full bg-border" />
+        <span className="h-1 w-1 rounded-full bg-border" />
+      </div>
 
       {/* Upcoming */}
       <section>

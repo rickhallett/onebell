@@ -69,3 +69,31 @@ body {
     opacity: 0;
   }
 }
+
+/* Card lift on hover — subtle warmth */
+.card-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-lift:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.06);
+}
+
+/* Warm avatar palette — earth tones that feel human */
+.avatar-warm-1 { background-color: #B8A590; color: #3D3228; }
+.avatar-warm-2 { background-color: #A3B094; color: #2C3627; }
+.avatar-warm-3 { background-color: #C4A882; color: #3D3228; }
+.avatar-warm-4 { background-color: #9CADB8; color: #2A3338; }
+.avatar-warm-5 { background-color: #B8A0A8; color: #382A30; }
+
+@media (prefers-color-scheme: dark) {
+  .avatar-warm-1 { background-color: #6B5D50; color: #E0D5CA; }
+  .avatar-warm-2 { background-color: #5A6B52; color: #D4E0CC; }
+  .avatar-warm-3 { background-color: #7A6548; color: #E0D5CA; }
+  .avatar-warm-4 { background-color: #506068; color: #CADAE0; }
+  .avatar-warm-5 { background-color: #6B5560; color: #E0CAD4; }
+
+  .card-lift:hover {
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.2);
+  }
+}
