@@ -14,7 +14,7 @@ export default async function MySitsPage() {
   if (!hasAnySits) {
     return (
       <div>
-        <h1 className="text-2xl font-bold">My Sits</h1>
+        <h1 className="font-serif text-2xl font-medium">My Sits</h1>
         <EmptyState
           title="No sits yet."
           description="Create or join a sit to get started."
@@ -22,13 +22,13 @@ export default async function MySitsPage() {
           <div className="space-y-3">
             <Link
               href="/app/create"
-              className="flex min-h-11 items-center justify-center rounded-md bg-foreground px-4 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-80"
+              className="flex min-h-12 items-center justify-center rounded-xl bg-accent px-4 py-3 text-sm font-medium text-background transition-colors hover:bg-accent-light"
             >
-              + Start a sit now
+              Start a sit now
             </Link>
             <Link
               href="/app"
-              className="flex min-h-11 items-center justify-center rounded-md border border-foreground/20 px-4 py-2.5 text-sm font-medium text-foreground transition-opacity hover:opacity-80"
+              className="flex min-h-12 items-center justify-center rounded-xl border border-border px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-surface"
             >
               Browse the board
             </Link>
@@ -40,19 +40,19 @@ export default async function MySitsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold">My Sits</h1>
+      <h1 className="font-serif text-2xl font-medium">My Sits</h1>
 
       {/* Hosting section */}
       <section className="mt-8">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-foreground/50">
+        <h2 className="font-serif text-sm font-medium uppercase tracking-widest text-muted">
           Hosting
         </h2>
         {hosting.length === 0 ? (
-          <p className="mt-3 text-sm text-foreground/40">
+          <p className="mt-4 text-sm text-muted">
             You are not hosting any sits.
           </p>
         ) : (
-          <div className="mt-3 space-y-3">
+          <div className="mt-4 space-y-3">
             {hosting.map((sit) => (
               <HostingSitCard key={sit.id} sit={sit} />
             ))}
@@ -62,15 +62,15 @@ export default async function MySitsPage() {
 
       {/* Joined section */}
       <section className="mt-8">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-foreground/50">
+        <h2 className="font-serif text-sm font-medium uppercase tracking-widest text-muted">
           Joined
         </h2>
         {joined.length === 0 ? (
-          <p className="mt-3 text-sm text-foreground/40">
+          <p className="mt-4 text-sm text-muted">
             You have not joined any sits.
           </p>
         ) : (
-          <div className="mt-3 space-y-3">
+          <div className="mt-4 space-y-3">
             {joined.map((sit) => (
               <JoinedSitCard key={sit.id} sit={sit} />
             ))}
@@ -80,13 +80,13 @@ export default async function MySitsPage() {
 
       {/* Past section */}
       <section className="mt-8">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-foreground/50">
+        <h2 className="font-serif text-sm font-medium uppercase tracking-widest text-muted">
           Past
         </h2>
         {past.length === 0 ? (
-          <p className="mt-3 text-sm text-foreground/40">No past sits yet.</p>
+          <p className="mt-4 text-sm text-muted">No past sits yet.</p>
         ) : (
-          <div className="mt-3 space-y-3">
+          <div className="mt-4 space-y-3">
             {past.map((sit) => (
               <PastSitCard key={sit.id} sit={sit} />
             ))}

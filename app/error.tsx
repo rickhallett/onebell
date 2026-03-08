@@ -7,15 +7,15 @@ export default function ErrorPage({
   reset: () => void
 }) {
   return (
-    <div className="flex min-h-screen items-center justify-center px-4">
+    <div className="flex min-h-screen items-center justify-center px-6">
       <div className="text-center">
-        <h1 className="text-2xl font-bold">Something went wrong</h1>
-        <p className="mt-2 text-foreground/60">
+        <h1 className="font-serif text-2xl font-medium">Something went wrong</h1>
+        <p className="mt-3 text-muted">
           An unexpected error occurred. Please try again.
         </p>
         <button
           onClick={reset}
-          className="mt-6 min-h-11 rounded-md bg-foreground px-6 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-80"
+          className="mt-8 min-h-12 rounded-xl bg-accent px-6 py-3 text-sm font-medium text-background transition-colors hover:bg-accent-light"
         >
           Try again
         </button>

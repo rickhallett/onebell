@@ -15,15 +15,15 @@ export function SitList({ sits, currentUserId }: SitListProps) {
     <div>
       {/* Available Now */}
       <section>
-        <h2 className="text-xs font-bold uppercase tracking-widest text-foreground/50">
+        <h2 className="font-serif text-sm font-medium uppercase tracking-widest text-muted">
           Available Now
         </h2>
         {availableNow.length === 0 ? (
-          <p className="mt-3 text-sm text-foreground/40">
+          <p className="mt-4 text-sm text-muted">
             No one available right now.
           </p>
         ) : (
-          <div className="mt-3 space-y-3">
+          <div className="mt-4 space-y-3">
             {availableNow.map((sit) => (
               <SitCard
                 key={sit.id}
@@ -36,19 +36,19 @@ export function SitList({ sits, currentUserId }: SitListProps) {
       </section>
 
       {/* Divider */}
-      <hr className="my-6 border-foreground/10" />
+      <hr className="my-8 border-border" />
 
       {/* Upcoming */}
       <section>
-        <h2 className="text-xs font-bold uppercase tracking-widest text-foreground/50">
+        <h2 className="font-serif text-sm font-medium uppercase tracking-widest text-muted">
           Upcoming
         </h2>
         {upcoming.length === 0 ? (
-          <p className="mt-3 text-sm text-foreground/40">
+          <p className="mt-4 text-sm text-muted">
             Nothing scheduled yet.
           </p>
         ) : (
-          <div className="mt-3 divide-y divide-foreground/5">
+          <div className="mt-4 divide-y divide-border/50">
             {upcoming.map((sit) => (
               <SitCard
                 key={sit.id}

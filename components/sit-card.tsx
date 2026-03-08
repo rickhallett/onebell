@@ -13,29 +13,31 @@ export function SitCard({ sit, currentUserId }: SitCardProps) {
   const isHost = currentUserId === sit.hostUserId
 
   if (!availableNow) {
-    // Compact upcoming row: "19:00 — Daniel"
+    // Compact upcoming row
     return (
-      <div className="flex items-center justify-between py-3">
+      <div className="flex items-center justify-between py-4">
         <p className="text-foreground/80">
           <span className="font-medium">{formatSitTime(sit.startsAt)}</span>
-          {" — "}
-          {sit.hostDisplayName}
+          <span className="mx-2 text-muted">&mdash;</span>
+          <span>{sit.hostDisplayName}</span>
         </p>
         {!isHost && <JoinButton sitId={sit.id} />}
       </div>
     )
   }
 
-  // Full card for Available Now
+  // Full card for Available Now — pinned note style
   return (
-    <div className="rounded-lg border border-foreground/10 p-4">
-      <p className="text-lg font-semibold">{sit.hostDisplayName}</p>
-      <p className="mt-1 text-foreground/70">{sit.instructionText}</p>
-      <p className="mt-1 text-sm text-foreground/50">
+    <div className="rounded-xl border border-border bg-surface p-5">
+      <p className="font-serif text-lg font-medium">{sit.hostDisplayName}</p>
+      <p className="mt-1.5 leading-relaxed text-foreground/70">
+        {sit.instructionText}
+      </p>
+      <p className="mt-1.5 text-sm text-muted">
         {sit.durationMinutes} min
       </p>
       {!isHost && (
-        <div className="mt-3">
+        <div className="mt-4">
           <JoinButton sitId={sit.id} />
         </div>
       )}

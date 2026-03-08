@@ -11,11 +11,11 @@ interface StatusBadgeProps {
 
 function StatusBadge({ status }: StatusBadgeProps) {
   const styles: Record<string, string> = {
-    open: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300",
-    joined: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300",
-    completed: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
-    cancelled: "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300",
-    expired: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300",
+    open: "bg-accent/15 text-accent",
+    joined: "bg-accent/25 text-foreground",
+    completed: "bg-border text-muted",
+    cancelled: "bg-error/15 text-error",
+    expired: "bg-border text-muted",
   }
 
   return (
@@ -35,17 +35,19 @@ interface HostingCardProps {
 
 export function HostingSitCard({ sit }: HostingCardProps) {
   return (
-    <div className="rounded-lg border border-foreground/10 p-4">
+    <div className="rounded-xl border border-border bg-surface p-5">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <p className="text-sm font-medium text-foreground/50">
+            <p className="text-sm font-medium text-muted">
               {formatSitTime(sit.startsAt)}
             </p>
             <StatusBadge status={sit.status} />
           </div>
-          <p className="mt-1 text-foreground/70">{sit.instructionText}</p>
-          <p className="mt-1 text-sm text-foreground/50">
+          <p className="mt-2 leading-relaxed text-foreground/80">
+            {sit.instructionText}
+          </p>
+          <p className="mt-1 text-sm text-muted">
             {sit.durationMinutes} min
           </p>
           <p className="mt-1 text-sm text-foreground/60">
@@ -55,7 +57,7 @@ export function HostingSitCard({ sit }: HostingCardProps) {
           </p>
         </div>
       </div>
-      <div className="mt-3">
+      <div className="mt-4">
         <CancelButton sitId={sit.id} />
       </div>
     </div>
@@ -70,17 +72,19 @@ interface JoinedCardProps {
 
 export function JoinedSitCard({ sit }: JoinedCardProps) {
   return (
-    <div className="rounded-lg border border-foreground/10 p-4">
+    <div className="rounded-xl border border-border bg-surface p-5">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <p className="text-sm font-medium text-foreground/50">
+            <p className="text-sm font-medium text-muted">
               {formatSitTime(sit.startsAt)}
             </p>
             <StatusBadge status={sit.status} />
           </div>
-          <p className="mt-1 text-foreground/70">{sit.instructionText}</p>
-          <p className="mt-1 text-sm text-foreground/50">
+          <p className="mt-2 leading-relaxed text-foreground/80">
+            {sit.instructionText}
+          </p>
+          <p className="mt-1 text-sm text-muted">
             {sit.durationMinutes} min
           </p>
           <p className="mt-1 text-sm text-foreground/60">
@@ -88,13 +92,13 @@ export function JoinedSitCard({ sit }: JoinedCardProps) {
           </p>
         </div>
       </div>
-      <div className="mt-3 flex flex-wrap items-center gap-3">
+      <div className="mt-4 flex flex-wrap items-center gap-3">
         {sit.meetingUrl && (
           <a
             href={sit.meetingUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex min-h-11 items-center rounded-md bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-80"
+            className="inline-flex min-h-11 items-center rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-background transition-colors hover:bg-accent-light"
           >
             Open Meeting
           </a>
@@ -112,19 +116,20 @@ interface PastCardProps {
 }
 
 export function PastSitCard({ sit }: PastCardProps) {
-  // Determine partner name based on perspective
   const partnerName = sit.guestDisplayName ?? "No partner"
 
   return (
-    <div className="rounded-lg border border-foreground/5 p-4 opacity-70">
+    <div className="rounded-xl border border-border/60 p-5 opacity-60">
       <div className="flex items-center gap-2">
-        <p className="text-sm font-medium text-foreground/50">
+        <p className="text-sm font-medium text-muted">
           {formatSitTime(sit.startsAt)}
         </p>
         <StatusBadge status={sit.status} />
       </div>
-      <p className="mt-1 text-foreground/70">{sit.instructionText}</p>
-      <p className="mt-1 text-sm text-foreground/50">
+      <p className="mt-2 leading-relaxed text-foreground/70">
+        {sit.instructionText}
+      </p>
+      <p className="mt-1 text-sm text-muted">
         {sit.durationMinutes} min
       </p>
       <p className="mt-1 text-sm text-foreground/60">{partnerName}</p>

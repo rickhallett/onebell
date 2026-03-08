@@ -92,7 +92,7 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
       <div>
         <label
           htmlFor="displayName"
-          className="block text-sm font-medium text-foreground/70"
+          className="mb-2 block text-sm font-medium text-foreground/70"
         >
           Display Name
         </label>
@@ -103,7 +103,7 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
           onChange={(e) => setDisplayName(e.target.value)}
           required
           maxLength={100}
-          className="mt-1 block w-full rounded-md border border-foreground/20 bg-background px-3 py-2.5 text-foreground placeholder:text-foreground/40 focus:border-foreground/50 focus:outline-none"
+          className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm placeholder:text-muted focus:border-accent focus:outline-none"
         />
       </div>
 
@@ -111,7 +111,7 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
       <div>
         <label
           htmlFor="timezone"
-          className="block text-sm font-medium text-foreground/70"
+          className="mb-2 block text-sm font-medium text-foreground/70"
         >
           Timezone
         </label>
@@ -120,7 +120,7 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
           value={timezone}
           onChange={(e) => setTimezone(e.target.value)}
           required
-          className="mt-1 block w-full rounded-md border border-foreground/20 bg-background px-3 py-2.5 text-foreground focus:border-foreground/50 focus:outline-none"
+          className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm focus:border-accent focus:outline-none"
         >
           {TIMEZONES.map((tz) => (
             <option key={tz} value={tz}>
@@ -134,7 +134,7 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
       <div>
         <label
           htmlFor="bio"
-          className="block text-sm font-medium text-foreground/70"
+          className="mb-2 block text-sm font-medium text-foreground/70"
         >
           Bio
         </label>
@@ -143,7 +143,7 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
           value={bio}
           onChange={(e) => setBio(e.target.value)}
           rows={3}
-          className="mt-1 block w-full rounded-md border border-foreground/20 bg-background px-3 py-2.5 text-foreground placeholder:text-foreground/40 focus:border-foreground/50 focus:outline-none"
+          className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm leading-relaxed placeholder:text-muted focus:border-accent focus:outline-none"
           placeholder="A bit about your practice..."
         />
       </div>
@@ -151,14 +151,14 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
       {/* Open to beginners */}
       <label
         htmlFor="openToBeginners"
-        className="flex min-h-11 cursor-pointer items-center gap-3"
+        className="flex min-h-12 cursor-pointer items-center gap-3 rounded-xl border border-border px-4 py-3"
       >
         <input
           id="openToBeginners"
           type="checkbox"
           checked={openToBeginners}
           onChange={(e) => setOpenToBeginners(e.target.checked)}
-          className="h-5 w-5 rounded border-foreground/20"
+          className="h-5 w-5 rounded border-border accent-accent"
         />
         <span className="text-sm font-medium text-foreground/70">
           Open to beginners
@@ -168,10 +168,10 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
       {/* Feedback */}
       {feedback && (
         <p
-          className={`text-sm ${
+          className={`rounded-xl px-4 py-3 text-sm ${
             feedback.type === "success"
-              ? "text-green-600 dark:text-green-400"
-              : "text-red-600 dark:text-red-400"
+              ? "bg-success/10 text-success"
+              : "bg-error/10 text-error"
           }`}
         >
           {feedback.message}
@@ -182,12 +182,12 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
       <button
         type="submit"
         disabled={loading}
-        className="min-h-11 w-full rounded-md bg-foreground px-6 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-80 disabled:opacity-50"
+        className="min-h-12 w-full rounded-xl bg-accent px-6 py-3 text-sm font-medium text-background transition-colors hover:bg-accent-light disabled:opacity-50"
       >
         {loading ? (
           <span className="inline-flex items-center justify-center gap-2">
-            <span className="h-4 w-4 animate-spin rounded-full border-2 border-background border-t-transparent" />
-            Saving...
+            <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-background border-t-transparent" />
+            Saving
           </span>
         ) : (
           "Save Profile"

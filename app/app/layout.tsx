@@ -19,7 +19,7 @@ export default async function AppLayout({
   }
 
   return (
-    <div className="mx-auto min-h-screen max-w-lg px-4 pb-16 pt-6">
+    <div className="mx-auto min-h-screen max-w-lg px-5 pb-20 pt-8">
       {children}
       <AppNav />
     </div>

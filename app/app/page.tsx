@@ -20,10 +20,12 @@ export default async function BoardPage() {
 
   return (
     <PollingWrapper>
-      <h1 className="text-2xl font-bold">ninebells</h1>
+      <h1 className="font-serif text-3xl font-medium tracking-tight">
+        ninebells
+      </h1>
 
       {hasSits ? (
-        <div className="mt-6">
+        <div className="mt-8">
           <SitList sits={sits} currentUserId={currentUserId} />
         </div>
       ) : (
@@ -34,34 +36,33 @@ export default async function BoardPage() {
           <div className="space-y-3">
             <Link
               href="/app/create"
-              className="flex min-h-11 items-center justify-center rounded-md bg-foreground px-4 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-80"
+              className="flex min-h-12 items-center justify-center rounded-lg bg-accent px-4 py-3 text-sm font-medium text-background transition-colors hover:bg-accent-light"
             >
-              + Start a sit now
+              Start a sit now
             </Link>
             <Link
               href="/app/create"
-              className="flex min-h-11 items-center justify-center rounded-md border border-foreground/20 px-4 py-2.5 text-sm font-medium text-foreground transition-opacity hover:opacity-80"
+              className="flex min-h-12 items-center justify-center rounded-lg border border-border px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-surface"
             >
-              + Schedule sit
+              Schedule a sit
             </Link>
           </div>
         </EmptyState>
       )}
 
-      {/* CTAs — shown below the list when sits exist */}
       {hasSits && (
-        <div className="mt-8 space-y-3">
+        <div className="mt-10 space-y-3">
           <Link
             href="/app/create"
-            className="flex min-h-11 items-center justify-center rounded-md bg-foreground px-4 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-80"
+            className="flex min-h-12 items-center justify-center rounded-lg bg-accent px-4 py-3 text-sm font-medium text-background transition-colors hover:bg-accent-light"
           >
-            + Start a sit now
+            Start a sit now
           </Link>
           <Link
             href="/app/create"
-            className="flex min-h-11 items-center justify-center rounded-md border border-foreground/20 px-4 py-2.5 text-sm font-medium text-foreground transition-opacity hover:opacity-80"
+            className="flex min-h-12 items-center justify-center rounded-lg border border-border px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-surface"
           >
-            + Schedule sit
+            Schedule a sit
           </Link>
         </div>
       )}

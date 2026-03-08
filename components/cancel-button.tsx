@@ -29,19 +29,19 @@ export function CancelButton({ sitId }: { sitId: string }) {
       <button
         onClick={handleCancel}
         disabled={loading}
-        className="min-h-11 rounded-md border border-red-300 px-4 py-2.5 text-sm font-medium text-red-600 transition-opacity hover:bg-red-50 disabled:opacity-50 dark:border-red-700 dark:text-red-400 dark:hover:bg-red-950"
+        className="min-h-11 rounded-lg border border-error/30 px-4 py-2.5 text-sm font-medium text-error transition-colors hover:bg-error/10 disabled:opacity-50"
       >
         {loading ? (
           <span className="inline-flex items-center gap-2">
-            <span className="h-4 w-4 animate-spin rounded-full border-2 border-red-600 border-t-transparent dark:border-red-400" />
-            Cancelling...
+            <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-error border-t-transparent" />
+            Cancelling
           </span>
         ) : (
           "Cancel Sit"
         )}
       </button>
       {error && (
-        <p className="mt-1.5 text-sm text-red-600 dark:text-red-400">
+        <p className="mt-1.5 text-sm text-error">
           {error}
         </p>
       )}

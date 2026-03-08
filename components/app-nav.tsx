@@ -18,7 +18,7 @@ export function AppNav() {
   }
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-foreground/10 bg-background">
+    <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background">
       <div className="mx-auto flex max-w-lg">
         {NAV_ITEMS.map((item) => {
           const active = isActive(item.href)
@@ -28,8 +28,8 @@ export function AppNav() {
               href={item.href}
               className={`flex min-h-12 flex-1 items-center justify-center text-sm font-medium transition-colors ${
                 active
-                  ? "text-foreground"
-                  : "text-foreground/40 hover:text-foreground/70"
+                  ? "text-accent"
+                  : "text-muted hover:text-foreground"
               }`}
             >
               {item.label}

@@ -27,19 +27,19 @@ export function LeaveButton({ sitId }: { sitId: string }) {
       <button
         onClick={handleLeave}
         disabled={loading}
-        className="min-h-11 rounded-md border border-foreground/20 px-4 py-2.5 text-sm font-medium text-foreground/70 transition-opacity hover:bg-foreground/5 disabled:opacity-50"
+        className="min-h-11 rounded-lg border border-border px-4 py-2.5 text-sm font-medium text-muted transition-colors hover:bg-surface disabled:opacity-50"
       >
         {loading ? (
           <span className="inline-flex items-center gap-2">
-            <span className="h-4 w-4 animate-spin rounded-full border-2 border-foreground/70 border-t-transparent" />
-            Leaving...
+            <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-muted border-t-transparent" />
+            Leaving
           </span>
         ) : (
           "Leave Sit"
         )}
       </button>
       {error && (
-        <p className="mt-1.5 text-sm text-red-600 dark:text-red-400">
+        <p className="mt-1.5 text-sm text-error">
           {error}
         </p>
       )}

@@ -12,8 +12,8 @@ export default async function ProfilePage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold">Profile</h1>
-      <div className="mt-6">
+      <h1 className="font-serif text-2xl font-medium">Profile</h1>
+      <div className="mt-8">
         <ProfileForm
           initialData={{
             displayName: user.displayName,
