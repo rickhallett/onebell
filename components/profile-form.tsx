@@ -149,7 +149,10 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
       </div>
 
       {/* Open to beginners */}
-      <div className="flex items-center gap-3">
+      <label
+        htmlFor="openToBeginners"
+        className="flex min-h-11 cursor-pointer items-center gap-3"
+      >
         <input
           id="openToBeginners"
           type="checkbox"
@@ -157,13 +160,10 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
           onChange={(e) => setOpenToBeginners(e.target.checked)}
           className="h-5 w-5 rounded border-foreground/20"
         />
-        <label
-          htmlFor="openToBeginners"
-          className="text-sm font-medium text-foreground/70"
-        >
+        <span className="text-sm font-medium text-foreground/70">
           Open to beginners
-        </label>
-      </div>
+        </span>
+      </label>
 
       {/* Feedback */}
       {feedback && (

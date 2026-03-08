@@ -591,14 +591,11 @@ Track completion as phases merge. Update after each post-merge verification.
 | P1 | 1.1-1.2 | done | 5be7a45 | gate green | Combined: schema + queries + validation |
 | P2 | 2.1-2.2 | done | 5be7a45 | gate green | Combined: Clerk + user sync |
 | P3 | 3.1-3.2 | done | 20fa119 | gate green | Combined: mutation + query actions |
-| P4 | 4.1 | pending | — | — | |
-| P4 | 4.2 | pending | — | — | |
-| P5 | 5.1 | pending | — | — | |
-| P5 | 5.2 | pending | — | — | |
-| P6 | 6.1 | pending | — | — | |
-| P7 | 7.1 | pending | — | — | |
-| P8 | 8.1 | pending | — | — | |
-| P8 | 8.2 | pending | — | — | |
+| P4 | 4.1-4.2 | done | 70324eb | gate green | Board + polling |
+| P5 | 5.1-5.2 | done | 70324eb | gate green | Available Now + Schedule forms |
+| P6 | 6.1 | done | 70324eb | gate green | My Sits page |
+| P7 | 7.1 | done | 70324eb | gate green | Profile page |
+| P8 | 8.1-8.2 | done | 70324eb | gate green | Resend + email templates |
 | P9 | 9.1 | pending | — | — | |
 | P9 | 9.2 | pending | — | — | |
 | P10 | 10.1 | pending | — | — | |

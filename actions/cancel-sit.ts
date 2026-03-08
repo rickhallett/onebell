@@ -5,6 +5,7 @@ import { clerkClient } from "@clerk/nextjs/server"
 import { requireUser } from "@/lib/auth"
 import { getUserByClerkId, cancelSit } from "@/db/queries"
 import { sendSitCancelledEmail } from "@/emails/sit-cancelled"
+import { trackEvent } from "@/lib/analytics"
 
 type ActionResult =
   | { success: true }
@@ -22,6 +23,7 @@ export async function cancelSitAction(
 
     revalidatePath("/app")
     revalidatePath("/app/my-sits")
+    trackEvent("sit_cancelled", { sitId })
 
     // Fire-and-forget: only email guest if one exists
     if (guest) {

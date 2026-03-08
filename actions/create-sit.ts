@@ -9,6 +9,7 @@ import {
   type CreateAvailableNowInput,
   type CreateScheduledSitInput,
 } from "@/lib/validation"
+import { trackEvent } from "@/lib/analytics"
 
 type ActionResult =
   | { success: true; sitId: string }
@@ -40,6 +41,7 @@ export async function createAvailableNowSit(
     })
 
     revalidatePath("/app")
+    trackEvent("sit_created", { sitId: sit.id, type: "available_now" })
 
     return { success: true, sitId: sit.id }
   } catch (error) {
@@ -74,6 +76,7 @@ export async function createScheduledSit(
     })
 
     revalidatePath("/app")
+    trackEvent("sit_created", { sitId: sit.id, type: "scheduled" })
 
     return { success: true, sitId: sit.id }
   } catch (error) {

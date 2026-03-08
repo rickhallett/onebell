@@ -5,6 +5,7 @@ import { clerkClient } from "@clerk/nextjs/server"
 import { requireUser } from "@/lib/auth"
 import { getUserByClerkId, leaveSit } from "@/db/queries"
 import { sendGuestLeftEmail } from "@/emails/guest-left"
+import { trackEvent } from "@/lib/analytics"
 
 type ActionResult =
   | { success: true }
@@ -22,6 +23,7 @@ export async function leaveSitAction(
 
     revalidatePath("/app")
     revalidatePath("/app/my-sits")
+    trackEvent("sit_left", { sitId })
 
     // Fire-and-forget: email must not block the mutation
     const clerk = await clerkClient()

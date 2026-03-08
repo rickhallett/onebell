@@ -1,6 +1,7 @@
 import { eq } from "drizzle-orm"
 import { db } from "@/db/client"
 import { users } from "@/db/schema"
+import { trackEvent } from "@/lib/analytics"
 
 interface ClerkUserInfo {
   firstName?: string | null
@@ -37,6 +38,8 @@ export async function ensureUserExists(
       timezone: "UTC",
     })
     .returning()
+
+  trackEvent("user_signed_up", { userId: created.id })
 
   return created
 }

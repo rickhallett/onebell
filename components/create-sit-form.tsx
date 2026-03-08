@@ -77,25 +77,25 @@ export function CreateSitForm() {
 
       {/* Mode tabs */}
       <div className="mb-6 flex rounded-lg border border-foreground/10">
-        <button
-          type="button"
-          onClick={() => { setMode("now"); setError(null) }}
-          className={`flex-1 rounded-l-lg px-4 py-3 text-sm font-medium transition-colors ${
-            mode === "now"
-              ? "bg-foreground text-background"
-              : "hover:bg-foreground/5"
-          }`}
-        >
-          Start a sit now
-        </button>
-        <button
-          type="button"
-          onClick={() => { setMode("scheduled"); setError(null) }}
-          className={`flex-1 rounded-r-lg px-4 py-3 text-sm font-medium transition-colors ${
-            mode === "scheduled"
-              ? "bg-foreground text-background"
-              : "hover:bg-foreground/5"
-          }`}
+          <button
+            type="button"
+            onClick={() => { setMode("now"); setError(null) }}
+            className={`min-h-11 flex-1 rounded-l-lg px-4 py-3 text-sm font-medium transition-colors ${
+              mode === "now"
+                ? "bg-foreground text-background"
+                : "hover:bg-foreground/5"
+            }`}
+          >
+            Start a sit now
+          </button>
+          <button
+            type="button"
+            onClick={() => { setMode("scheduled"); setError(null) }}
+            className={`min-h-11 flex-1 rounded-r-lg px-4 py-3 text-sm font-medium transition-colors ${
+              mode === "scheduled"
+                ? "bg-foreground text-background"
+                : "hover:bg-foreground/5"
+            }`}
         >
           Schedule a sit
         </button>
@@ -143,7 +143,7 @@ export function CreateSitForm() {
                 key={d}
                 type="button"
                 onClick={() => setDurationMinutes(d)}
-                className={`flex-1 rounded-lg border px-3 py-2.5 text-sm font-medium transition-colors ${
+                className={`min-h-11 flex-1 rounded-lg border px-3 py-2.5 text-sm font-medium transition-colors ${
                   durationMinutes === d
                     ? "border-foreground bg-foreground text-background"
                     : "border-foreground/20 hover:border-foreground/40"

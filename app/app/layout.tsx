@@ -1,5 +1,6 @@
 import { auth, currentUser } from "@clerk/nextjs/server"
 import { ensureUserExists } from "@/lib/user-sync"
+import { AppNav } from "@/components/app-nav"
 
 export default async function AppLayout({
   children,
@@ -18,8 +19,9 @@ export default async function AppLayout({
   }
 
   return (
-    <div className="mx-auto min-h-screen max-w-lg px-4 py-6">
+    <div className="mx-auto min-h-screen max-w-lg px-4 pb-16 pt-6">
       {children}
+      <AppNav />
     </div>
   )
 }
