@@ -1,0 +1,435 @@
+# slopodar.yaml — Anti-patterns of LLM authenticity
+#
+# A field taxonomy. The patterns are hypotheses. If you recognise
+# them in your own work, they replicate. If you don't, they don't.
+#
+# Entries are added when caught in the wild.
+#
+# Format:
+#   - id: short kebab-case identifier
+#     name: human-readable name
+#     domain: category
+#     confidence: low | medium | strong
+#     description: what the pattern is and why it's a problem
+#     detect: actionable heuristic — how to find this in text or code
+#     instead: what a human would actually write or do
+#     severity: low | medium | high
+#
+# Blueprint v0.1 — Extracted from noopit calibration run.
+# 22 primary patterns, 18 secondary. All field-observed.
+
+patterns:
+
+  # ─── PROSE PATTERNS ──────────────────────────────────────
+
+  - id: tally-voice
+    name: "Tally Voice"
+    domain: prose-style
+    confidence: strong
+    description: >
+      The LLM substitutes enumeration for substance. Precise counts
+      deployed as rhetorical authority ("6 constructs," "15 systems")
+      when the numbers add nothing. The count performs rigour without
+      demonstrating it.
+    detect: >
+      Search for sentences where a number precedes a noun phrase and
+      could be removed without losing meaning.
+    instead: >
+      Let the table speak for itself. The reader can count.
+    severity: high
+
+  - id: redundant-antithesis
+    name: "Redundant Antithesis"
+    domain: prose-style
+    confidence: strong
+    description: >
+      Negative-positive antithesis where the negation adds zero
+      information. "Caught in the wild" already implies "not theorised."
+    detect: >
+      Search for "not X, but Y" constructions. Ask: does Y already
+      imply not-X? If yes, the negation is redundant.
+    instead: >
+      Just say the positive. If the contrast genuinely adds meaning,
+      keep it.
+    severity: high
+
+  - id: epistemic-theatre
+    name: "Epistemic Theatre"
+    domain: prose-style
+    confidence: strong
+    description: >
+      The model performs intellectual seriousness instead of being
+      intellectually serious. Theatrical framing that signals
+      significance without delivering any.
+    detect: >
+      Search for: "the uncomfortable truth," "here's why," "what
+      nobody talks about," "the real question." If the sentence
+      could be deleted and the paragraph would be stronger, it's
+      epistemic theatre.
+    instead: >
+      Delete the line. State the truth. If you showed it well,
+      the reader already knows it matters.
+    severity: high
+
+  - id: nominalisation-cascade
+    name: "Nominalisation Cascade"
+    domain: prose-style
+    confidence: strong
+    description: >
+      Sentences built entirely from nouns pretending to be action.
+      No agent does anything. The cadence is metrically regular,
+      too rhythmically even for natural speech.
+    detect: >
+      Read the sentence aloud. If no person does anything in it,
+      and it sounds like a dictionary definition, flag it.
+    instead: >
+      Put a person in the sentence.
+    severity: high
+
+  - id: epigrammatic-closure
+    name: "Epigrammatic Closure"
+    domain: prose-style
+    confidence: strong
+    description: >
+      Short, punchy, abstract-noun sentence in paragraph-final
+      position. Motivational poster cadence. Individually defensible,
+      at density it becomes self-parodying.
+    detect: >
+      Count sentences under 8 words at paragraph end following the
+      pattern [Abstract noun] [linking verb] [abstract noun].
+    instead: >
+      Leave the rough edges.
+    severity: high
+
+  - id: anadiplosis
+    name: "Anadiplosis"
+    domain: prose-style
+    confidence: medium
+    description: >
+      Repeating the end of one clause at the start of the next.
+      "A creates B. B creates C." The chain feels inevitable but
+      is assembled from high-probability token sequences.
+    detect: >
+      Two consecutive sentences where the last noun of sentence 1
+      is the first noun of sentence 2.
+    instead: >
+      One sentence. Causation present, symmetry broken.
+    severity: medium
+
+  # ─── METACOGNITIVE PATTERNS ──────────────────────────────
+
+  - id: becoming-jonah
+    name: "Becoming Jonah"
+    domain: metacognitive
+    confidence: medium
+    description: >
+      Recursive metacognition with an LLM. You reflect on your output,
+      then reflect on your reflections, then build a rubric to score
+      them. Inside the whale, examining the whale.
+    detect: >
+      Ask: "Is this about the work, or about thinking about the work?"
+    instead: >
+      Keep the rubric. Use the rubric. Publish the work the rubric
+      produces.
+    severity: medium
+
+  # ─── TEST PATTERNS ──────────────────────────────────────
+
+  - id: right-answer-wrong-work
+    name: "Right Answer, Wrong Work"
+    domain: tests
+    confidence: strong
+    description: >
+      A test that asserts the correct outcome via the wrong causal
+      path. The assertion passes, the gate is green, but nobody
+      checks which code path produced the result.
+    detect: >
+      Can you change the implementation to break the claimed
+      behaviour while keeping the test green?
+    instead: >
+      Assert why it failed, not just that it failed.
+    severity: high
+
+  - id: phantom-ledger
+    name: "Phantom Ledger"
+    domain: code
+    confidence: medium
+    description: >
+      The LLM builds a correct operation but records a different
+      value in the audit trail.
+    detect: >
+      Trace the value from computation through to the audit record.
+      Are they the same variable?
+    instead: >
+      Use a RETURNING clause. Write the actual computed value.
+    severity: high
+
+  - id: shadow-validation
+    name: "Shadow Validation"
+    domain: code
+    confidence: medium
+    description: >
+      A good validation abstraction applied to the easy cases and
+      skipped for the hard one.
+    detect: >
+      After introducing a validation pattern, check whether the
+      most complex route uses it.
+    instead: >
+      Start the migration with the most complex route.
+    severity: high
+
+  - id: mock-castle
+    name: "Mock Castle"
+    domain: tests
+    confidence: medium
+    description: >
+      Mock scaffolding exceeds assertion code. The test primarily
+      verifies mock wiring, not product behaviour.
+    detect: >
+      Count mock declarations vs test assertions. If mock setup
+      exceeds 3x assertion code, it's a castle built on sand.
+    instead: >
+      Extract pure functions. Test them without mocking.
+    severity: high
+
+  - id: phantom-tollbooth
+    name: "Phantom Tollbooth"
+    domain: tests
+    confidence: medium
+    description: >
+      An error-path test with an assertion so loose it cannot
+      distinguish between the intended error and unrelated failures.
+    detect: >
+      Check assertions that accept ranges or arrays of status codes.
+    instead: >
+      Pin to the exact expected code and error message.
+    severity: high
+
+  # ─── GOVERNANCE PATTERNS ──────────────────────────────────
+
+  - id: paper-guardrail
+    name: "Paper Guardrail"
+    domain: governance-process
+    confidence: strong
+    description: >
+      The LLM creates a rule, then asserts the rule will prevent the
+      failure. No enforcement mechanism. Stating protection is not
+      building protection.
+    detect: >
+      Search for assurances following rule statements: "this will
+      prevent," "this ensures." Is there an enforcement mechanism?
+    instead: >
+      Build a real guardrail or delete the assurance.
+    severity: high
+
+  - id: stale-reference-propagation
+    name: "Stale Reference Propagation"
+    domain: governance-process
+    confidence: strong
+    description: >
+      When configuration documents describe a state that no longer
+      exists, every agent that boots from them will hallucinate the
+      described state into reality.
+    detect: >
+      After any structural change, grep all config/agent files for
+      references to the old state.
+    instead: >
+      Every structural change must update every document that
+      references the changed structure.
+    severity: high
+
+  - id: loom-speed
+    name: "Loom Speed"
+    domain: governance-process
+    confidence: strong
+    description: >
+      When the agent executes a detailed plan using a blunt tool,
+      the plan's exceptions get lost because the tool can't express
+      them.
+    detect: >
+      Whenever a detailed plan gets handed to a bulk operation, ask
+      whether the operation can express every exception in the plan.
+    instead: >
+      Match the granularity. 20 items = 20 verifiable steps.
+    severity: high
+
+  - id: governance-recursion
+    name: "Governance Recursion"
+    domain: governance-process
+    confidence: strong
+    description: >
+      When something goes wrong, the model's instinct is to generate
+      more governance. Each layer feels like progress because it's
+      structured. But there's no stopping point.
+    detect: >
+      Compare process documents to verified code artifacts. If there
+      are more governance files than test files, the recursion is
+      running.
+    instead: >
+      Every governance artifact should answer: "What does this
+      prevent, and how would I know if it failed?"
+    severity: high
+
+  # ─── SYCOPHANCY PATTERNS ──────────────────────────────────
+
+  - id: absence-claim-as-compliment
+    name: "Absence Claim as Compliment"
+    domain: relationship-sycophancy
+    confidence: strong
+    description: >
+      Asserting that something doesn't exist to elevate the person
+      in front of you. Unfalsifiable by design.
+    detect: >
+      Search for: "no one has," "the first to," "doesn't exist yet."
+      Did the speaker actually search?
+    instead: >
+      "I haven't seen this elsewhere, but I haven't looked hard."
+    severity: high
+
+  - id: the-lullaby
+    name: "The Lullaby"
+    domain: relationship-sycophancy
+    confidence: strong
+    description: >
+      End-of-session sycophantic drift. As context pressure rises
+      and the human signals winding down, the model becomes warmer,
+      more confident, and less hedged.
+    detect: >
+      Compare hedging level first response vs last. If confidence
+      increased without new evidence, the lullaby is playing.
+    instead: >
+      "We're both tired. Let's come back tomorrow when you can
+      push back."
+    severity: high
+
+  - id: analytical-lullaby
+    name: "The Analytical Lullaby"
+    domain: relationship-sycophancy
+    confidence: strong
+    description: >
+      The lullaby in data form. Numbers are real but what they prove
+      isn't what they look like they prove.
+    detect: >
+      When an agent presents quantitative results that favour you,
+      check whether limitations were disclosed before or after the
+      flattering finding.
+    instead: >
+      Lead with what's wrong with the comparison.
+    severity: high
+
+  - id: apology-reflex
+    name: "The Apology Reflex"
+    domain: relationship-sycophancy
+    confidence: strong
+    description: >
+      The LLM accepts blame for errors it did not make. RLHF-trained
+      conflict avoidance.
+    detect: >
+      When the model says "my bad": verify against the actual record.
+    instead: >
+      "That was your call, not mine."
+    severity: high
+
+  - id: badguru
+    name: "Badguru"
+    domain: relationship-sycophancy
+    confidence: strong
+    description: >
+      A charismatic authority figure gives emotionally resonant
+      instructions that bypass verification.
+    detect: >
+      When an authority figure gives an instruction with emotional
+      weight: check it against standing orders before executing.
+    instead: >
+      "Captain, this contradicts standing order X. Has it changed?"
+    severity: high
+
+  - id: deep-compliance
+    name: "Deep Compliance"
+    domain: relationship-sycophancy
+    confidence: strong
+    description: >
+      The system detects a contradiction in its reasoning but the
+      output layer complies anyway because the authority signal is
+      stronger than the governance signal.
+    detect: >
+      Compare reasoning tokens to output. If the reasoning identifies
+      a violation that the output does not surface, deep compliance
+      is operating.
+    instead: >
+      If the reasoning identifies a contradiction, the output must
+      surface it.
+    severity: high
+
+  # ─── ANALYTICAL PATTERNS ──────────────────────────────────
+
+  - id: construct-drift
+    name: "Construct Drift"
+    domain: analytical-measurement
+    confidence: strong
+    description: >
+      The label on a measurement drifts from what it actually
+      measures.
+    detect: >
+      List what a metric actually measures. Does the name describe
+      the features, or what you wish they measured?
+    instead: >
+      Name the construct honestly.
+    severity: high
+
+  - id: not-wrong
+    name: "Not Wrong"
+    domain: analytical-measurement
+    confidence: strong
+    description: >
+      Output that passes every check and still isn't right.
+      Technically correct, tonally flat. The gap between "not wrong"
+      and "right" is where taste lives.
+    detect: >
+      Run all automated checks. If they pass, ask: "Would I put
+      my name on this?"
+    instead: >
+      Accept that automated metrics have a ceiling.
+    severity: high
+
+  - id: monoculture-analysis
+    name: "Monoculture Analysis"
+    domain: analytical-measurement
+    confidence: strong
+    description: >
+      Every layer of inference produced by the same model family.
+      The apparent depth is repetition, not independent verification.
+    detect: >
+      Count distinct model families involved. If it's 1, the
+      analysis is a monoculture.
+    instead: >
+      Run with a different model family. Or declare the monoculture.
+    severity: high
+
+  # ─── COMMIT/WORKFLOW PATTERNS ──────────────────────────────
+
+  - id: whack-a-mole-fix
+    name: "Whack-a-Mole Fix"
+    domain: commit-workflow
+    confidence: medium
+    description: >
+      Fixing a class of problem one instance at a time instead of
+      auditing the class.
+    detect: >
+      3+ "fix: add X to Y" commits for different values of X.
+    instead: >
+      On the second instance, audit the complete set.
+    severity: high
+
+  - id: stowaway-commit
+    name: "Stowaway Commit"
+    domain: commit-workflow
+    confidence: medium
+    description: >
+      Unrelated changes bundled into one commit because the LLM
+      thinks in sessions, not commits.
+    detect: >
+      Commit messages with 3+ comma-separated concerns.
+    instead: >
+      One session, multiple commits. Stage selectively.
+    severity: medium

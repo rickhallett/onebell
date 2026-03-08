@@ -1,0 +1,35 @@
+# Session Decisions Index — ninebells
+#
+# Boot file. Contains standing orders and recent SDs for orientation.
+# The full chain lives in session-decisions.md (archaeology only — do not load on boot).
+#
+# Standing orders carry forward across all sessions.
+
+standing_orders:
+  - id: SD-001
+    tag: truth-first
+    rule: "truth >> convenience"
+    status: PERMANENT
+
+  - id: SD-002
+    tag: the-chain
+    rule: "historical_data := immutable"
+    status: PERMANENT
+
+  - id: SD-003
+    tag: agentic-estimation
+    rule: "estimates.assume(agentic_speed)"
+    status: PERMANENT
+
+  - id: SD-004
+    tag: slopodar-boot
+    rule: "all_hands.boot -> read(slopodar)"
+    status: STANDING
+
+recent_decisions: []
+  # Add new SDs here as the project evolves:
+  # - id: SD-005
+  #   tag: descriptive-tag
+  #   date: YYYY-MM-DD
+  #   summary: "What was decided and why"
+  #   status: ACTIVE | PERMANENT | STANDING | SUPERSEDED

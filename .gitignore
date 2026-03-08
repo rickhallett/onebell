@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build
+.next/
+dist/
+out/
+
+# Gauntlet attestations (ephemeral verification state)
+.gauntlet/
+
+# Polecat artifacts
+.done/
+.logs/
+
+# Pitkeel state (local, not committed)
+.keel-state
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+.venv/

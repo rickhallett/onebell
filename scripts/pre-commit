@@ -1,0 +1,14 @@
+#!/bin/bash
+# Pre-commit hook — runs the gate before allowing commit.
+#
+# Install: make install-hooks
+# Or:      ln -sf ../../scripts/pre-commit .git/hooks/pre-commit
+
+# Source the gate command from Makefile or run directly
+# IMPORTANT: Replace with your project's gate command
+echo "Running pre-commit gate..."
+
+# Uncomment and configure:
+# pnpm run typecheck && pnpm run lint && pnpm run test
+
+echo "✓ Pre-commit gate passed"

@@ -1,0 +1,18 @@
+# events.yaml — Append-only event spine
+#
+# Schema: {date, time, type, agent, commit, ref, summary, backrefs}
+# Append new events at the bottom. Never edit existing entries.
+#
+# Types: decision, commit, darkcat, catch, reset, observation, commendation
+#
+# This file is the reference web spine. Cross-reference via backrefs.
+
+events: []
+  # - date: "2026-01-01"
+  #   time: "09:00"
+  #   type: decision
+  #   agent: weaver
+  #   commit: abc1234
+  #   ref: SD-005
+  #   summary: "Established gate command for the project"
+  #   backrefs: []
