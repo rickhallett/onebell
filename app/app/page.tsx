@@ -6,6 +6,8 @@ import { SitList } from "@/components/sit-list"
 import { PollingWrapper } from "@/components/polling-wrapper"
 import { EmptyState } from "@/components/empty-state"
 
+export const dynamic = "force-dynamic"
+
 export default async function BoardPage() {
   const { userId: clerkId } = await auth()
 

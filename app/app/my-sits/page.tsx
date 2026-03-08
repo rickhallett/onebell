@@ -1,5 +1,7 @@
 import Link from "next/link"
 import { mySitsAction } from "@/actions/my-sits"
+
+export const dynamic = "force-dynamic"
 import {
   HostingSitCard,
   JoinedSitCard,
