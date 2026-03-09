@@ -150,12 +150,15 @@ test.describe.serial("Sit lifecycle", () => {
     // Click "Cancel Sit"
     await card.getByRole("button", { name: "Cancel Sit" }).click()
 
-    // After cancel, the status badge should change to "cancelled"
-    // or the card moves out of the active hosting list.
+    // After cancel, the card should disappear from Hosting (revalidatePath
+    // re-renders the page and cancelled sits move to Past section).
     // Wait for the page to re-render after revalidation.
+    await hostPage.waitForTimeout(1000)
+    await hostPage.reload()
+    // The card should no longer be in the Hosting section
     await expect(
-      card.locator("text=cancelled")
-    ).toBeVisible({ timeout: 10000 })
+      hostingSection.locator(".card-lift", { hasText: instruction })
+    ).toHaveCount(0, { timeout: 10000 })
   })
 
   test("Cancelled sit no longer on board", async ({ guestPage }) => {

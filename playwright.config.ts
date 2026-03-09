@@ -28,7 +28,7 @@ export default defineConfig({
     },
     {
       name: "mobile",
-      use: { ...devices["iPhone 14"], storageState: "e2e/.auth/host.json" },
+      use: { ...devices["Pixel 7"], storageState: "e2e/.auth/host.json" },
       dependencies: ["setup"],
       grepInvert: /@smoke/, // Don't re-run smoke tests in the auth'd project
     },

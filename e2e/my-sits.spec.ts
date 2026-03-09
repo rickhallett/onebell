@@ -10,12 +10,12 @@ test.describe("My Sits page — authenticated", () => {
 
   test("shows Hosting section header", async ({ page }) => {
     await page.goto("/app/my-sits")
-    await expect(page.getByText("Hosting")).toBeVisible({ timeout: 10000 })
+    await expect(page.getByRole("heading", { name: "Hosting" })).toBeVisible({ timeout: 10000 })
   })
 
   test("shows Joined section header", async ({ page }) => {
     await page.goto("/app/my-sits")
-    await expect(page.getByText("Joined")).toBeVisible({ timeout: 10000 })
+    await expect(page.getByRole("heading", { name: "Joined" })).toBeVisible({ timeout: 10000 })
   })
 
   test("shows Past section header", async ({ page }) => {
@@ -32,7 +32,7 @@ test.describe("My Sits page — authenticated", () => {
   test("hosting cards show instruction text", async ({ page }) => {
     await page.goto("/app/my-sits")
     // If user has hosting sits, they should show instruction text
-    const heading = page.getByText("Hosting")
+    const heading = page.getByRole("heading", { name: "Hosting" })
     await expect(heading).toBeVisible({ timeout: 10000 })
     // Content depends on user's actual sits — verify structure exists
   })
@@ -79,8 +79,8 @@ test.describe("My Sits — empty state", () => {
   // So we test the structure exists
   test("empty state has CTAs to create or browse", async ({ page }) => {
     await page.goto("/app/my-sits")
-    // Either we see sections (has sits) or empty state CTAs
-    const hosting = page.getByText("Hosting")
+    // Either we see section headings (has sits) or empty state CTAs
+    const hosting = page.getByRole("heading", { name: "Hosting" })
     const emptyTitle = page.getByText("No sits yet")
     await expect(hosting.or(emptyTitle)).toBeVisible({ timeout: 10000 })
   })

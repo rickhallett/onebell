@@ -1,0 +1,157 @@
+# QA Checklist — ninebells MVP
+# Generated: 2026-03-09
+# Purpose: Pre-deploy verification combining automated gates and human judgement checks
+# Usage: Automated checks run first; failures block. Human checks follow for sign-off.
+#
+# Status values: pending | pass | fail | skip | na
+# Severity: blocker (blocks deploy) | major (should fix) | minor (can ship with)
+
+meta:
+  project: ninebells
+  version: 0.1.0
+  commit: 8d912c7
+  generated_by: "@Weaver"
+  last_run: null
+
+# ═══════════════════════════════════════════════════════════════
+# SECTION 1: AUTOMATED CHECKS (machine-verifiable)
+# Run with: make qa-auto (or execute each command individually)
+# ═══════════════════════════════════════════════════════════════
+
+automated:
+
+  # ── Gate (the hull) ──────────────────────────────────────────
+  - id: A-001
+    name: TypeScript typecheck
+    command: "pnpm run typecheck"
+    severity: blocker
+    status: pending
+    output: null
+
+  - id: A-002
+    name: ESLint
+    command: "pnpm run lint"
+    severity: blocker
+    status: pending
+    output: null
+
+  - id: A-003
+    name: Vitest unit + action orchestration tests
+    command: "pnpm run test"
+    severity: blocker
+    status: pending
+    output: null
+    expected: "109 tests passing across 11 files"
+
+  # ── Build ────────────────────────────────────────────────────
+  - id: A-004
+    name: Next.js production build
+    command: "pnpm run build"
+    severity: blocker
+    status: pending
+    output: null
+    notes: "Catches RSC serialisation errors, missing imports, build-time failures not caught by typecheck"
+
+  # ── Security (automated surface) ─────────────────────────────
+  - id: A-005
+    name: No secrets in tracked files
+    command: "git grep -iE '(sk_live|sk_test|CLERK_SECRET|DATABASE_URL=postgres|RESEND_API_KEY=re_)' -- ':!.env*'"
+    severity: blocker
+    status: pending
+    output: null
+    notes: "Scan for hardcoded secrets outside .env files"
+
+  - id: A-006
+    name: ".env files gitignored"
+    command: "git ls-files .env .env.local .env.*.local | wc -l"
+    severity: blocker
+    status: pending
+    expected: "0 (no env files tracked)"
+    output: null
+
+  - id: A-007
+    name: Email templates use escapeHtml for all interpolations
+    command: "grep -rn '${' emails/ | grep -v 'escapeHtml' | grep -v 'process.env' | grep -v 'import'"
+    severity: blocker
+    status: pending
+    expected: "No output (all interpolations escaped)"
+    output: null
+    notes: "DC-1 finding #1 — XSS via email HTML injection"
+
+  - id: A-008
+    name: All mutation queries use transactions
+    command: "grep -cP 'db\\.transaction' db/queries.ts"
+    severity: major
+    status: pending
+    expected: "3 (joinSit, leaveSit, cancelSit)"
+    output: null
+    notes: "DC-1 finding #3/#4 — transaction safety for state mutations"
+
+  - id: A-009
+    name: meetingUrl schema enforces HTTPS
+    command: "grep -c 'httpsUrl' lib/validation.ts"
+    severity: major
+    status: pending
+    expected: ">=2 (applied in both sit creation schemas)"
+    output: null
+
+  # ── Dependency health ────────────────────────────────────────
+  - id: A-010
+    name: pnpm audit (known vulnerabilities)
+    command: "pnpm audit --prod 2>&1 || true"
+    severity: major
+    status: pending
+    output: null
+    notes: "Advisory — new vulns may be upstream and unfixable"
+
+  # ── Code hygiene ─────────────────────────────────────────────
+  - id: A-011
+    name: No console.log in production code (non-test, non-seed)
+    command: "grep -rn 'console\\.log' lib/ actions/ components/ app/ db/queries.ts db/client.ts db/schema.ts db/env.ts --include='*.ts' --include='*.tsx' | grep -v '\\.test\\.' | grep -v 'seed\\.' | grep -v 'debug\\.' | grep -v 'migrate\\.' || true"
+    severity: minor
+    status: pending
+    output: null
+    notes: "console.error/warn are acceptable; console.log is noise"
+
+  - id: A-012
+    name: No TODO/FIXME/HACK markers in production code
+    command: "grep -rn 'TODO\\|FIXME\\|HACK\\|XXX' lib/ actions/ components/ app/ db/ emails/ --include='*.ts' --include='*.tsx' || true"
+    severity: minor
+    status: pending
+    output: null
+    notes: "Informational — known debt should be in backlog, not inline"
+
+  # ── Env completeness ─────────────────────────────────────────
+  - id: A-013
+    name: "NEXT_PUBLIC_APP_URL in .env.example"
+    command: "grep -c 'NEXT_PUBLIC_APP_URL' .env.example"
+    severity: major
+    status: pending
+    expected: ">=1"
+    output: null
+    notes: "Used in sit-cancelled email template but missing from .env.example"
+
+  # ── Middleware & auth ────────────────────────────────────────
+  - id: A-014
+    name: Clerk middleware protects /app routes
+    command: "grep -c 'auth.protect' middleware.ts"
+    severity: blocker
+    status: pending
+    expected: "1"
+    output: null
+
+  - id: A-015
+    name: All server actions call requireUser or auth
+    command: "grep -rn 'requireUser\\|await auth()' actions/ --include='*.ts' | grep -v '\\.test\\.' | wc -l"
+    severity: blocker
+    status: pending
+    expected: ">=6 (one per action file)"
+    output: null
+    notes: "Every mutating action must verify authentication"
+
+# ═══════════════════════════════════════════════════════════════
+# SECTION 2: HUMAN VERIFICATION CHECKS
+# These require human judgement, visual inspection, or a running
+# app with real auth state. Present after automated checks pass.
+# Precondition: `pnpm dev` running, signed in with test account.
+# ═══════════════════════════════════════════════════════════════
