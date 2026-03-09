@@ -1,7 +1,7 @@
-# Session 4 Continuation Prompt — ninebells
+# Session 4 Continuation Prompt — onebell
 
 ## Project Identity
-**ninebells** — mobile-first web app where meditation practitioners signal availability and form dyad inquiry sits (two-person sessions). Coordination tool, not video host. Users provide their own meeting links.
+**onebell** — mobile-first web app where meditation practitioners signal availability and form dyad inquiry sits (two-person sessions). Coordination tool, not video host. Users provide their own meeting links.
 
 ## Tech Stack
 Next.js 16 App Router, TypeScript, Tailwind v4, Clerk v7 auth, Neon Postgres (`@neondatabase/serverless` Pool driver), Drizzle ORM, Resend email, Zod v4 validation, Vitest, Playwright. Target: Vercel. Governance: nooprint blueprint, `AGENTS.md` standing orders.

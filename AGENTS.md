@@ -1,4 +1,4 @@
-# Ship's Orders — ninebells
+# Ship's Orders — onebell
 
 > Governance is inescapable. This is not reduced governance — it is refined governance.
 > This file IS the boot sequence. Everything an agent needs to operate is here or referenced with a file path.
@@ -470,7 +470,7 @@ From commit 0:
 ## Conventions
 
 ```signal
--- ninebells conventions
+-- onebell conventions
 -- TypeScript, Next.js App Router, React Server Components
 -- Drizzle ORM, Neon Postgres, Clerk auth, Resend email
 -- Tailwind CSS, Zod validation, date-fns

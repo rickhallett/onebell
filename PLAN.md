@@ -1,4 +1,4 @@
-# ninebells — Build Plan
+# onebell — Build Plan
 
 Version: **v1.0**
 Spec: `SPEC.md v0.2`

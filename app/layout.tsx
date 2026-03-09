@@ -16,7 +16,7 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
-  title: "ninebells",
+  title: "onebell",
   description: "Signal availability. Form dyad inquiry sits.",
 };
 

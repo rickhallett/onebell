@@ -1,5 +1,5 @@
 /**
- * Direct SQL migration for ninebells.
+ * Direct SQL migration for onebell.
  * Creates the users and sits tables if they don't exist.
  * Safe to run multiple times (CREATE IF NOT EXISTS).
  *

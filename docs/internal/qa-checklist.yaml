@@ -1,4 +1,4 @@
-# QA Checklist — ninebells MVP
+# QA Checklist — onebell MVP
 # Generated: 2026-03-09
 # Purpose: Pre-deploy verification combining automated gates and human judgement checks
 # Usage: Automated checks run first; failures block. Human checks follow for sign-off.
@@ -7,7 +7,7 @@
 # Severity: blocker (blocks deploy) | major (should fix) | minor (can ship with)
 
 meta:
-  project: ninebells
+  project: onebell
   version: 0.1.0
   commit: 8d912c7
   generated_by: "@Weaver"

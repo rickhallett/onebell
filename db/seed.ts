@@ -1,5 +1,5 @@
 /**
- * Seed script for ninebells.
+ * Seed script for onebell.
  *
  * Creates 5 practitioner accounts and a variety of sits across
  * all lifecycle states so the UX can be evaluated with realistic data.

@@ -1,4 +1,4 @@
-# ninebells — Evaluation Criteria
+# onebell — Evaluation Criteria
 
 ## Primary Success Criterion
 

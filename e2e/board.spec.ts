@@ -9,9 +9,9 @@ test.describe("@smoke Board — unauthenticated", () => {
 })
 
 test.describe("Board — authenticated", () => {
-  test("shows the ninebells heading and subline", async ({ page }) => {
+  test("shows the onebell heading and subline", async ({ page }) => {
     await page.goto("/app")
-    await expect(page.getByRole("heading", { name: "ninebells" })).toBeVisible({
+    await expect(page.getByRole("heading", { name: "onebell" })).toBeVisible({
       timeout: 10000,
     })
     await expect(page.getByText("sitting?")).toBeVisible()

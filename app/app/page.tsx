@@ -23,7 +23,7 @@ export default async function BoardPage() {
     <PollingWrapper>
       <div>
         <h1 className="font-serif text-3xl font-medium tracking-tight">
-          ninebells
+          onebell
         </h1>
         <p className="mt-1 text-sm text-muted">Who&rsquo;s sitting?</p>
       </div>

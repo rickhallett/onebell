@@ -34,10 +34,10 @@ test.describe("@smoke Route smoke tests — no auth required", () => {
 })
 
 test.describe("@smoke Landing page content", () => {
-  test("shows ninebells heading", async ({ page }) => {
+  test("shows onebell heading", async ({ page }) => {
     await page.goto("/")
     await expect(
-      page.getByRole("heading", { name: "ninebells" })
+      page.getByRole("heading", { name: "onebell" })
     ).toBeVisible()
   })
 
@@ -93,7 +93,7 @@ test.describe("Navigation flow — authenticated", () => {
     await page.getByRole("link", { name: "Board" }).click()
     await page.waitForURL(/\/app$/, { timeout: 10000 })
     await expect(
-      page.getByRole("heading", { name: "ninebells" })
+      page.getByRole("heading", { name: "onebell" })
     ).toBeVisible()
   })
 

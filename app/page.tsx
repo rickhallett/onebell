@@ -14,7 +14,7 @@ export default async function Home() {
       <main className="flex max-w-sm flex-col items-center gap-10 text-center">
         <div className="space-y-4">
           <h1 className="font-serif text-5xl font-medium tracking-tight">
-            ninebells
+            onebell
           </h1>
           <p className="text-base leading-relaxed text-muted">
             A sit board for dyad inquiry practitioners.

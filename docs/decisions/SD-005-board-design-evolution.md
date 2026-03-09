@@ -27,7 +27,7 @@ Two distinct enrichment passes were made, each committed separately so the Capta
 | **Section header** | Static text | Green breathing pulse dot (3s ease-in-out) + count "(3)" |
 | **Upcoming rows** | Time + name only | Added instruction text in serif italic + duration |
 | **Join button** | "Join" | "Sit together" — domain-specific |
-| **Board header** | "ninebells" only | Added subline: "Who's sitting?" |
+| **Board header** | "onebell" only | Added subline: "Who's sitting?" |
 | **Empty state** | "No sits right now." | "The hall is quiet. Open a sit and someone may join you." |
 
 **Query change:** `listOpenSits` expanded to join `users.timezone`, `users.bio`, `users.openToBeginners` alongside the existing `users.displayName`.

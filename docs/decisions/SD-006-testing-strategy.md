@@ -5,7 +5,7 @@
 
 ## Context
 
-ninebells is approaching production deployment (P10). The gate previously had a no-op test stub (`echo "No tests configured yet"`). We need real verification before the hull goes to sea.
+onebell is approaching production deployment (P10). The gate previously had a no-op test stub (`echo "No tests configured yet"`). We need real verification before the hull goes to sea.
 
 ## Decision
 

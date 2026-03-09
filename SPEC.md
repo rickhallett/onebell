@@ -1,4 +1,4 @@
-# ninebells — MVP Specification
+# onebell — MVP Specification
 
 Version: **v0.2**
 
@@ -12,7 +12,7 @@ Primary test:
 
 ## 1. Product Overview
 
-ninebells is a **mobile-first web app** where practitioners can:
+onebell is a **mobile-first web app** where practitioners can:
 
 1. Signal **Available Now** to sit immediately
 2. **Schedule a sit** in the future
@@ -285,7 +285,7 @@ Optional (later): 15 minute reminder.
 Main screen:
 
 ```
-ninebells
+onebell
 
 AVAILABLE NOW
 
@@ -472,6 +472,6 @@ RESEND_API_KEY
 
 ## 27. Guiding Product Principle
 
-ninebells should feel like a **physical bulletin board in a meditation hall**.
+onebell should feel like a **physical bulletin board in a meditation hall**.
 
 The system should reduce the path from `I want to sit` to `I am sitting with someone` to **two or three taps**.

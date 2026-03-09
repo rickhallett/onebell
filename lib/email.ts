@@ -2,7 +2,7 @@ import { Resend } from "resend"
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
-const FROM_EMAIL = "ninebells <noreply@ninebells.app>"
+const FROM_EMAIL = "onebell <noreply@onebell.app>"
 
 export async function sendEmail(opts: {
   to: string

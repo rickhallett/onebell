@@ -24,7 +24,7 @@ Structured walkthrough to verify production readiness before handing the system 
 | 1.2 | Provision production Neon database | [H] | `DATABASE_URL` for production obtained | ☐ |
 | 1.3 | Run DB migrations on production | [H+M] | `pnpm db:migrate` succeeds against production `DATABASE_URL` | ☐ |
 | 1.4 | Create Clerk production instance (or confirm dev instance is sufficient for soft launch) | [H] | `CLERK_SECRET_KEY` and `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` for production obtained | ☐ |
-| 1.5 | Configure Resend domain (`ninebells.app` or chosen domain) | [H] | Resend dashboard shows domain verified, `RESEND_API_KEY` for production obtained | ☐ |
+| 1.5 | Configure Resend domain (`onebell.app` or chosen domain) | [H] | Resend dashboard shows domain verified, `RESEND_API_KEY` for production obtained | ☐ |
 | 1.6 | Set all env vars on Vercel | [H] | `DATABASE_URL`, `CLERK_SECRET_KEY`, `CLERK_PUBLISHABLE_KEY`, `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `NEXT_PUBLIC_CLERK_SIGN_IN_URL`, `NEXT_PUBLIC_CLERK_SIGN_UP_URL`, `RESEND_API_KEY` all set in Vercel dashboard | ☐ |
 | 1.7 | Deploy to Vercel | [H] | `vercel --prod` or git push triggers deploy, build succeeds | ☐ |
 | 1.8 | Verify deployment is live | [H] | Production URL responds with landing page | ☐ |
@@ -96,7 +96,7 @@ Structured walkthrough to verify production readiness before handing the system 
 | # | Item | Who | Pass criteria | Status |
 |---|------|-----|--------------|--------|
 | 6.1 | Verify `RESEND_API_KEY` is set in production | [H] | Env var present in Vercel | ☐ |
-| 6.2 | Verify `from` address domain matches Resend verified domain | [H] | `noreply@ninebells.app` (in `lib/email.ts`) matches Resend domain. If domain is different, update `FROM_EMAIL` | ☐ |
+| 6.2 | Verify `from` address domain matches Resend verified domain | [H] | `noreply@onebell.app` (in `lib/email.ts`) matches Resend domain. If domain is different, update `FROM_EMAIL` | ☐ |
 | 6.3 | User A creates sit, User B joins | [H] | Both receive "Your sit has been confirmed" email (E12) | ☐ |
 | 6.4 | Check email content | [H] | Shows partner name, time, duration, instruction, "Open Meeting" link | ☐ |
 | 6.5 | Click "Open Meeting" link in email | [H] | Opens the meeting URL provided by host | ☐ |
@@ -134,7 +134,7 @@ Structured walkthrough to verify production readiness before handing the system 
 | # | Item | Who | Pass criteria | Status |
 |---|------|-----|--------------|--------|
 | 9.1 | Remove test sits from production DB | [H+M] | `DELETE FROM sits WHERE ...` for any test data | ☐ |
-| 9.2 | Verify `FROM_EMAIL` in `lib/email.ts` matches production domain | [M] | Currently `noreply@ninebells.app` — confirm this is correct or update | ☐ |
+| 9.2 | Verify `FROM_EMAIL` in `lib/email.ts` matches production domain | [M] | Currently `noreply@onebell.app` — confirm this is correct or update | ☐ |
 | 9.3 | Confirm middleware deprecation impact | [M] | Next.js 16 warns about middleware → proxy migration. Document whether this needs addressing before launch or can wait | ☐ |
 | 9.4 | Run full E2E suite against production (optional) | [M] | Point `baseURL` at production URL, run `pnpm test:e2e` | ☐ |
 | 9.5 | Update PLAN.md — mark P10 complete | [M] | Completed table updated | ☐ |
