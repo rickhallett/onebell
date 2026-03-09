@@ -24,14 +24,15 @@ darkcat:
 		2>&1 | tee $(LOGS)/dc-$(TREE)-claude.log
 	@echo "✓ DC-1 complete → $(LOGS)/dc-$(TREE)-claude.log"
 
-# ── DC-2: Alternative Model 1 ────────────────────────────────
-# Configure with your second model CLI. Example uses codex.
+# ── DC-2: Alternative Model 1 (OpenAI via Codex CLI) ─────────
 
 darkcat-alt1:
-	@echo "▶ DC-2 — adversarial review (Alt Model 1) [tree:$(TREE)]"
-	@echo "CONFIGURE: Replace this with your second model CLI"
-	@echo "Example: codex exec 'cat $(DARKCAT_PROMPT) | ...' 2>&1 | tee $(LOGS)/dc-$(TREE)-alt1.log"
-	@echo "⚠ DC-2 not configured — skipping"
+	@echo "▶ DC-2 — adversarial review (OpenAI/Codex) [tree:$(TREE)]"
+	@timeout $(DARKCAT_TIMEOUT) codex exec "$$(cat $(DARKCAT_PROMPT))" \
+		--ephemeral \
+		-o $(LOGS)/dc-$(TREE)-codex.log \
+		2>&1 | tee $(LOGS)/dc-$(TREE)-codex-stream.log
+	@echo "✓ DC-2 complete → $(LOGS)/dc-$(TREE)-codex.log"
 
 # ── DC-3: Alternative Model 2 ────────────────────────────────
 # Configure with your third model CLI.

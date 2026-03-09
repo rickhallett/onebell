@@ -1,1 +1,5 @@
 date	control	what_caught	agent	outcome	notes
+2026-03-09	darkcat-DC1	XSS via meetingUrl in email templates (critical) + HTML injection in all email templates (major) + non-HTTPS URLs accepted (minor)	@Weaver	FIXED	escapeHtml utility created, HTTPS-only validation, all 3 email templates sanitized
+2026-03-09	darkcat-DC1	leaveSit and cancelSit not transactional — race conditions (2x major)	@Weaver	FIXED	Both wrapped in db.transaction() with FOR UPDATE, matching joinSit pattern
+2026-03-09	darkcat-DC1	No max length on instructionText, note, bio (minor)	@Weaver	FIXED	max(500) on instruction/bio, max(200) on note
+2026-03-09	darkcat-DC1	PastSitCard avatar shows wrong person for guest viewer (minor, looks-right-trap)	@Weaver	FIXED	Added currentUserId prop, compute partner name correctly

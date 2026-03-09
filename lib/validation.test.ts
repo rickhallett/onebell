@@ -63,6 +63,38 @@ describe("createAvailableNowSchema", () => {
     const result = createAvailableNowSchema.safeParse({})
     expect(result.success).toBe(false)
   })
+
+  it("rejects non-HTTPS meeting URL", () => {
+    const result = createAvailableNowSchema.safeParse({
+      ...validInput,
+      meetingUrl: "http://meet.example.com/room",
+    })
+    expect(result.success).toBe(false)
+  })
+
+  it("rejects javascript: URI as meeting URL", () => {
+    const result = createAvailableNowSchema.safeParse({
+      ...validInput,
+      meetingUrl: "javascript:alert(1)",
+    })
+    expect(result.success).toBe(false)
+  })
+
+  it("rejects instruction text over 500 chars", () => {
+    const result = createAvailableNowSchema.safeParse({
+      ...validInput,
+      instructionText: "A".repeat(501),
+    })
+    expect(result.success).toBe(false)
+  })
+
+  it("rejects note over 200 chars", () => {
+    const result = createAvailableNowSchema.safeParse({
+      ...validInput,
+      note: "A".repeat(201),
+    })
+    expect(result.success).toBe(false)
+  })
 })
 
 describe("createScheduledSitSchema", () => {
@@ -169,5 +201,21 @@ describe("updateProfileSchema", () => {
       timezone: "",
     })
     expect(result.success).toBe(false)
+  })
+
+  it("rejects bio over 500 chars", () => {
+    const result = updateProfileSchema.safeParse({
+      ...validInput,
+      bio: "A".repeat(501),
+    })
+    expect(result.success).toBe(false)
+  })
+
+  it("accepts bio of exactly 500 chars", () => {
+    const result = updateProfileSchema.safeParse({
+      ...validInput,
+      bio: "A".repeat(500),
+    })
+    expect(result.success).toBe(true)
   })
 })

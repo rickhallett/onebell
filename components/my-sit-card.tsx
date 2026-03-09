@@ -150,12 +150,18 @@ export function JoinedSitCard({ sit }: JoinedCardProps) {
 
 interface PastCardProps {
   sit: SitWithNames
+  currentUserId?: string | null
 }
 
-export function PastSitCard({ sit }: PastCardProps) {
-  const partnerName = sit.guestDisplayName ?? "No partner"
-  const displayName =
-    sit.guestDisplayName ?? sit.hostDisplayName
+export function PastSitCard({ sit, currentUserId }: PastCardProps) {
+  // Show the partner's name/avatar, not your own
+  const isHost = currentUserId === sit.hostUserId
+  const partnerName = isHost
+    ? (sit.guestDisplayName ?? "No partner")
+    : sit.hostDisplayName
+  const displayName = isHost
+    ? (sit.guestDisplayName ?? sit.hostDisplayName)
+    : sit.hostDisplayName
 
   return (
     <div className="rounded-xl border border-border/40 p-5 opacity-60">

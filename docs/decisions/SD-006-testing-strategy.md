@@ -27,18 +27,23 @@ Pure functions with no infrastructure dependencies. These run in <1s and are the
 
 Coverage focus: boundary conditions (10-minute available-now window, 20-minute expiry), input validation edge cases (empty strings, max lengths, invalid durations), and deterministic behaviour (avatar colour stability).
 
-### Tier 2: Integration Tests (Vitest + Mocks)
+### Tier 2: Action Orchestration Tests (Vitest + Mocks)
 
-Server actions with mocked auth, DB, email, and cache. These verify the action logic (validation → auth → mutation → side effects → response) without hitting real infrastructure.
+Server actions with mocked auth, DB, email, and cache. These verify the action orchestration logic (validation → auth → mutation → side effects → response) without hitting real infrastructure. They are NOT integration tests — the DB layer, auth, and email are fully mocked. They verify that the action wiring is correct, not that the underlying services work.
 
 | File | Functions | Tests | Mocked Modules |
 |------|-----------|-------|----------------|
 | `actions/create-sit.test.ts` | `createAvailableNowSit`, `createScheduledSit` | 8 | auth, db/queries, next/cache, analytics |
 | `actions/join-sit.test.ts` | `joinSitAction` | 7 | auth, db/queries, clerk, next/cache, emails, analytics |
+| `actions/leave-sit.test.ts` | `leaveSitAction` | 5 | auth, db/queries, clerk, next/cache, emails, analytics |
+| `actions/cancel-sit.test.ts` | `cancelSitAction` | 7 | auth, db/queries, clerk, next/cache, emails, analytics |
+| `actions/update-profile.test.ts` | `updateProfileAction` | 8 | auth, db/queries, next/cache |
 
-**Total: 15 integration tests across 2 files.**
+**Total: 35 action orchestration tests across 5 files.**
 
 Coverage focus: happy path, auth failure, user-not-found, validation rejection, DB error propagation, startsAt timing (3-minute offset for available-now).
+
+**What these tests do NOT cover:** actual DB queries, actual Clerk auth, actual email delivery. The DB query layer (`db/queries.ts`) has zero direct test coverage — it is only tested indirectly through E2E tests and manual verification.
 
 ### Tier 3: E2E Tests (Playwright)
 

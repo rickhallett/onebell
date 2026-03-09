@@ -1,16 +1,24 @@
 import { z } from "zod"
 import { SIT_DURATIONS } from "./sit-utils"
 
+// -- Shared refinements ---------------------------------------------------
+
+const httpsUrl = z
+  .string()
+  .url("Must be a valid URL")
+  .refine((url) => url.startsWith("https://"), {
+    message: "Meeting URL must use HTTPS",
+  })
+
 // -- Available Now schema ------------------------------------------------
 
 export const createAvailableNowSchema = z.object({
   instructionText: z
     .string()
-    .min(1, "Instruction text is required"),
-  meetingUrl: z
-    .string()
-    .url("Must be a valid URL"),
-  note: z.string().optional(),
+    .min(1, "Instruction text is required")
+    .max(500, "Instruction text must be 500 characters or less"),
+  meetingUrl: httpsUrl,
+  note: z.string().max(200, "Note must be 200 characters or less").optional(),
   durationMinutes: z
     .number()
     .refine(
@@ -39,11 +47,10 @@ export const createScheduledSitSchema = z.object({
   practiceType: z.string().min(1, "Practice type is required"),
   instructionText: z
     .string()
-    .min(1, "Instruction text is required"),
-  meetingUrl: z
-    .string()
-    .url("Must be a valid URL"),
-  note: z.string().optional(),
+    .min(1, "Instruction text is required")
+    .max(500, "Instruction text must be 500 characters or less"),
+  meetingUrl: httpsUrl,
+  note: z.string().max(200, "Note must be 200 characters or less").optional(),
 })
 
 export type CreateScheduledSitInput = z.infer<typeof createScheduledSitSchema>
@@ -56,7 +63,7 @@ export const updateProfileSchema = z.object({
     .min(1, "Display name is required")
     .max(100, "Display name must be 100 characters or less"),
   timezone: z.string().min(1, "Timezone is required"),
-  bio: z.string().optional(),
+  bio: z.string().max(500, "Bio must be 500 characters or less").optional(),
   openToBeginners: z.boolean().optional(),
 })
 

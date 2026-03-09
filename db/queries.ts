@@ -153,99 +153,105 @@ export async function joinSit(
 }
 
 /**
- * Leave a sit. Verifies the user is the current guest.
+ * Leave a sit using a transaction to prevent race conditions.
+ * Verifies the user is the current guest before clearing guest_user_id.
  * Returns the sit with host info for email notification.
  */
 export async function leaveSit(
   sitId: string,
   userId: string
 ): Promise<{ sit: Sit; host: User }> {
-  const sitRows = await db
-    .select()
-    .from(sits)
-    .where(eq(sits.id, sitId))
-    .limit(1)
+  return await db.transaction(async (tx) => {
+    const sitRows = await tx
+      .select()
+      .from(sits)
+      .where(eq(sits.id, sitId))
+      .for("update")
 
-  const sit = sitRows[0]
-  if (!sit) {
-    throw new Error("Sit not found")
-  }
-  if (sit.guestUserId !== userId) {
-    throw new Error("Only the guest can leave a sit")
-  }
-  if (sit.status !== "joined") {
-    throw new Error("Sit is not in joined state")
-  }
+    const sit = sitRows[0]
+    if (!sit) {
+      throw new Error("Sit not found")
+    }
+    if (sit.guestUserId !== userId) {
+      throw new Error("Only the guest can leave a sit")
+    }
+    if (sit.status !== "joined") {
+      throw new Error("Sit is not in joined state")
+    }
 
-  const updatedRows = await db
-    .update(sits)
-    .set({
-      guestUserId: null,
-      status: "open",
-      updatedAt: new Date(),
-    })
-    .where(eq(sits.id, sitId))
-    .returning()
+    const updatedRows = await tx
+      .update(sits)
+      .set({
+        guestUserId: null,
+        status: "open",
+        updatedAt: new Date(),
+      })
+      .where(eq(sits.id, sitId))
+      .returning()
 
-  const hostRows = await db
-    .select()
-    .from(users)
-    .where(eq(users.id, sit.hostUserId))
-    .limit(1)
+    const hostRows = await tx
+      .select()
+      .from(users)
+      .where(eq(users.id, sit.hostUserId))
+      .limit(1)
 
-  if (!hostRows[0]) {
-    throw new Error("Host user not found")
-  }
+    if (!hostRows[0]) {
+      throw new Error("Host user not found")
+    }
 
-  return { sit: updatedRows[0], host: hostRows[0] }
+    return { sit: updatedRows[0], host: hostRows[0] }
+  })
 }
 
 /**
- * Cancel a sit. Verifies the user is the host.
+ * Cancel a sit using a transaction to prevent race conditions.
+ * Verifies the user is the host before setting status to cancelled.
  * Returns the sit with guest info (if any) for email notification.
  */
 export async function cancelSit(
   sitId: string,
   userId: string
 ): Promise<{ sit: Sit; guest: User | null }> {
-  const sitRows = await db
-    .select()
-    .from(sits)
-    .where(eq(sits.id, sitId))
-    .limit(1)
-
-  const sit = sitRows[0]
-  if (!sit) {
-    throw new Error("Sit not found")
-  }
-  if (sit.hostUserId !== userId) {
-    throw new Error("Only the host can cancel a sit")
-  }
-  if (sit.status === "cancelled") {
-    throw new Error("Sit is already cancelled")
-  }
-
-  const updatedRows = await db
-    .update(sits)
-    .set({
-      status: "cancelled",
-      cancelledAt: new Date(),
-      updatedAt: new Date(),
-    })
-    .where(eq(sits.id, sitId))
-    .returning()
-
-  let guest: User | null = null
-  if (sit.guestUserId) {
-    const guestRows = await db
+  return await db.transaction(async (tx) => {
+    const sitRows = await tx
       .select()
-      .from(users)
-      .where(eq(users.id, sit.guestUserId))
-      .limit(1)
-    guest = guestRows[0] ?? null
-  }
+      .from(sits)
+      .where(eq(sits.id, sitId))
+      .for("update")
 
-  return { sit: updatedRows[0], guest }
+    const sit = sitRows[0]
+    if (!sit) {
+      throw new Error("Sit not found")
+    }
+    if (sit.hostUserId !== userId) {
+      throw new Error("Only the host can cancel a sit")
+    }
+    if (sit.status === "cancelled") {
+      throw new Error("Sit is already cancelled")
+    }
+
+    const updatedRows = await tx
+      .update(sits)
+      .set({
+        status: "cancelled",
+        cancelledAt: new Date(),
+        updatedAt: new Date(),
+      })
+      .where(eq(sits.id, sitId))
+      .returning()
+
+    let guest: User | null = null
+    if (sit.guestUserId) {
+      const guestRows = await tx
+        .select()
+        .from(users)
+        .where(eq(users.id, sit.guestUserId))
+        .limit(1)
+      guest = guestRows[0] ?? null
+    }
+
+    return { sit: updatedRows[0], guest }
+  })
 }
 
 // -- Sit queries ---------------------------------------------------------

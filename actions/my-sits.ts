@@ -10,6 +10,7 @@ type SitWithNames = Sit & {
 }
 
 export type MySitsResult = {
+  userId: string
   hosting: SitWithNames[]
   joined: SitWithNames[]
   past: SitWithNames[]
@@ -41,5 +42,5 @@ export async function mySitsAction(): Promise<MySitsResult> {
     }
   }
 
-  return { hosting, joined, past }
+  return { userId: user.id, hosting, joined, past }
 }

@@ -1,1 +1,11 @@
 date	sha	model	round	severity	pattern	file	line	finding	status	sd_ref
+2026-03-09	b833cf6	claude-opus-4-6	DC-1	critical	shadow-validation	emails/sit-joined.ts	12	XSS via meetingUrl interpolated into email HTML without escaping	FIXED	
+2026-03-09	b833cf6	claude-opus-4-6	DC-1	major	shadow-validation	emails/*.ts	all	HTML injection via all interpolated fields in email templates	FIXED	
+2026-03-09	b833cf6	claude-opus-4-6	DC-1	major	shadow-validation	db/queries.ts	159	leaveSit not transactional — race condition on concurrent leave	FIXED	
+2026-03-09	b833cf6	claude-opus-4-6	DC-1	major	shadow-validation	db/queries.ts	207	cancelSit not transactional — race condition on concurrent cancel	FIXED	
+2026-03-09	b833cf6	claude-opus-4-6	DC-1	minor	shadow-validation	lib/validation.ts	8	instructionText has no max length — storage abuse possible	FIXED	
+2026-03-09	b833cf6	claude-opus-4-6	DC-1	minor	shadow-validation	lib/validation.ts	12	meetingUrl allows non-HTTPS protocols including javascript: URIs	FIXED	
+2026-03-09	b833cf6	claude-opus-4-6	DC-1	minor	looks-right-trap	components/my-sit-card.tsx	156	PastSitCard avatar shows wrong person when viewer is the guest	FIXED	
+2026-03-09	b833cf6	claude-opus-4-6	DC-1	minor	completeness-bias	app/app/page.tsx	41	Duplicated CTA buttons — extract shared component	DEFERRED	
+2026-03-09	b833cf6	claude-opus-4-6	DC-1	minor	mock-castle	actions/*.test.ts	all	Integration tests mislabelled — actually action orchestration tests	ACCEPTED	
+2026-03-09	b833cf6	claude-opus-4-6	DC-1	minor	paper-guardrail	actions/list-sits.ts	13	listSitsAction has no auth check — server action callable directly	CAPTAIN	

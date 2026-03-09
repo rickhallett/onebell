@@ -26,10 +26,15 @@ standing_orders:
     rule: "all_hands.boot -> read(slopodar)"
     status: STANDING
 
-recent_decisions: []
-  # Add new SDs here as the project evolves:
-  # - id: SD-005
-  #   tag: descriptive-tag
-  #   date: YYYY-MM-DD
-  #   summary: "What was decided and why"
-  #   status: ACTIVE | PERMANENT | STANDING | SUPERSEDED
+recent_decisions:
+  - id: SD-005
+    tag: board-design-evolution
+    date: 2026-03-08
+    summary: "Two-pass UX enrichment of board — informational richness (timezone, bio, beginners badge, host notes) then visual presence (avatars, blockquote instructions, card lift, nav icons). Preserves Zendo warm minimalism."
+    status: ACTIVE
+
+  - id: SD-006
+    tag: testing-strategy
+    date: 2026-03-08
+    summary: "Three-tier testing: 60 unit (vitest, pure functions), 15 integration (vitest + mocks on server actions), 16 E2E (playwright, chromium + mobile). Gate runs unit+integration only (~1s). E2E separate."
+    status: ACTIVE

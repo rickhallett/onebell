@@ -10,7 +10,7 @@ import {
 import { EmptyState } from "@/components/empty-state"
 
 export default async function MySitsPage() {
-  const { hosting, joined, past } = await mySitsAction()
+  const { userId, hosting, joined, past } = await mySitsAction()
   const hasAnySits = hosting.length + joined.length + past.length > 0
 
   if (!hasAnySits) {
@@ -145,7 +145,7 @@ export default async function MySitsPage() {
         ) : (
           <div className="mt-4 space-y-3">
             {past.map((sit) => (
-              <PastSitCard key={sit.id} sit={sit} />
+              <PastSitCard key={sit.id} sit={sit} currentUserId={userId} />
             ))}
           </div>
         )}

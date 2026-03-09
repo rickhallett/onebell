@@ -11,7 +11,9 @@ interface SitCardProps {
 
 export function SitCard({ sit, currentUserId }: SitCardProps) {
   const availableNow = isAvailableNow(sit.startsAt)
+  const isAuthenticated = currentUserId !== null
   const isHost = currentUserId === sit.hostUserId
+  const canJoin = isAuthenticated && !isHost
 
   if (!availableNow) {
     // Upcoming row — avatar, time, instruction, relative time
@@ -22,9 +24,11 @@ export function SitCard({ sit, currentUserId }: SitCardProps) {
           <div className="flex items-baseline justify-between gap-2">
             <p className="text-foreground/80">
               <span className="font-medium">{sit.hostDisplayName}</span>
-              <span className="ml-1.5 text-xs text-muted">
-                {formatTimezone(sit.hostTimezone)}
-              </span>
+              {sit.hostTimezone && (
+                <span className="ml-1.5 text-xs text-muted">
+                  {formatTimezone(sit.hostTimezone)}
+                </span>
+              )}
             </p>
             <p className="shrink-0 text-xs text-muted">
               {formatSitTime(sit.startsAt)}
@@ -45,7 +49,7 @@ export function SitCard({ sit, currentUserId }: SitCardProps) {
             )}
           </p>
         </div>
-        {!isHost && (
+        {canJoin && (
           <div className="shrink-0 self-center">
             <JoinButton sitId={sit.id} compact />
           </div>
@@ -64,9 +68,11 @@ export function SitCard({ sit, currentUserId }: SitCardProps) {
             <p className="font-serif text-lg font-medium">
               {sit.hostDisplayName}
             </p>
-            <p className="text-xs text-muted">
-              {formatTimezone(sit.hostTimezone)}
-            </p>
+            {sit.hostTimezone && (
+              <p className="text-xs text-muted">
+                {formatTimezone(sit.hostTimezone)}
+              </p>
+            )}
           </div>
         </div>
       </div>
@@ -95,7 +101,7 @@ export function SitCard({ sit, currentUserId }: SitCardProps) {
         </p>
       )}
 
-      {!isHost && (
+      {canJoin && (
         <div className="mt-4">
           <JoinButton sitId={sit.id} />
         </div>
