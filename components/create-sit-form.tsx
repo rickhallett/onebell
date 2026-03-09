@@ -66,7 +66,10 @@ export function CreateSitForm() {
   return (
     <div>
       <div className="mb-8 flex items-center justify-between">
-        <h1 className="font-serif text-2xl font-medium">Create a Sit</h1>
+        <div>
+          <h1 className="font-serif text-2xl font-medium">Create a Sit</h1>
+          <p className="mt-1 text-sm text-muted">Open a space for practice.</p>
+        </div>
         <Link
           href="/app"
           className="text-sm text-muted transition-colors hover:text-foreground"
@@ -219,7 +222,7 @@ export function CreateSitForm() {
         <button
           type="submit"
           disabled={submitting}
-          className="min-h-12 w-full rounded-xl bg-accent px-4 py-3 text-sm font-medium text-background transition-colors hover:bg-accent-light disabled:opacity-50"
+          className="min-h-12 w-full rounded-xl bg-accent px-4 py-3 text-sm font-medium text-background shadow-sm transition-all hover:bg-accent-light hover:shadow-md disabled:opacity-50"
         >
           {submitting
             ? "Creating..."

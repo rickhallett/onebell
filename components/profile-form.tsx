@@ -182,7 +182,7 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
       <button
         type="submit"
         disabled={loading}
-        className="min-h-12 w-full rounded-xl bg-accent px-6 py-3 text-sm font-medium text-background transition-colors hover:bg-accent-light disabled:opacity-50"
+        className="min-h-12 w-full rounded-xl bg-accent px-6 py-3 text-sm font-medium text-background shadow-sm transition-all hover:bg-accent-light hover:shadow-md disabled:opacity-50"
       >
         {loading ? (
           <span className="inline-flex items-center justify-center gap-2">
